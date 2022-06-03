@@ -1,8 +1,5 @@
 /* Cleaning Data in SQL Project */
 
-SELECT * 
-FROM dbo.NashvilleHousing
-
 -------------------------------------------------------------------------
 
 -- Standardize Date Format
@@ -22,7 +19,7 @@ SET SaleDateConverted = CONVERT(Date, SaleDate)
 ---------------------------------------------------------------
 -- Populate Property Address Data
 
-SELECT *
+SELECT ParcelID, PropertyAddress
 FROM dbo.NashvilleHousing
 --WHERE PropertyAddress IS NULL;
 ORDER BY ParcelID;
@@ -70,8 +67,6 @@ UPDATE NashvilleHousing
 SET PropertySplitCity = SUBSTRING(PropertyAddress, CHARINDEX(',', PropertyAddress) + 1 , LEN(PropertyAddress));
 
 
-SELECT * 
-FROM dbo.NashvilleHousing;
 
 -- Owner Address
 
@@ -101,11 +96,6 @@ ADD OwnerSplitState Nvarchar(255);
 
 UPDATE NashvilleHousing
 SET OwnerSplitState = PARSENAME(REPLACE(OwnerAddress, ',', '.'), 1);
-
-
-SELECT * 
-FROM dbo.NashvilleHousing;
-
 
 
 -------------------------------------------------------------
@@ -177,9 +167,6 @@ WHERE row_num > 1;
 
 ----------------------------------------------------------------
 -- Delete irrelevant columns
-
-SELECT * 
-FROM dbo.NashvilleHousing;
 
 ALTER TABLE NashvilleHousing
 DROP COLUMN OwnerAddress, TaxDistrict, PropertyAddress;
